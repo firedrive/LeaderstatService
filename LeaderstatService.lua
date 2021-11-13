@@ -2,52 +2,57 @@ local debugmode = true
 
 --// Leaderstat Service
 --// Created on 13/11/2021 by Endernymous
-local module = {}
+local LeaderstatService = {}
 
-function module:Create(p, n, t, v)
-	if p:FindFirstChild("leaderstats") then
-		-- already exists
-		local inst = Instance.new(t)
-		inst.Name = n
-		inst.Value = v or 0
-		inst.Parent = p:FindFirstChild("leaderstats")
-		
-		if debugmode then
-			print("? Created new leaderstat for "..p.Name..": "..inst.Name)
-		end
-		
-		return inst
-	else
-		-- doesn't exist
-		local lsfolder = Instance.new("Folder")
-		lsfolder.Name = "leaderstats"
-		lsfolder.Parent = p
-		print("? Created "..p.Name.."'s 'leaderstats' folder.")
-		
-		local inst = Instance.new(t)
-		inst.Name = n
-		inst.Value = v or 0
-		inst.Parent = p:FindFirstChild("leaderstats")
-		
-		if debugmode then
-			print("? Created new leaderstat for "..p.Name..": "..inst.Name)
-		end
-		
-		return inst
+function LeaderstatService:Create(player, name, class, value)
+	local leaderstats = player:FindFirstChild("leaderstats")
+	if not leaderstats then
+		leaderstats = Instance.new("Folder")
+		leaderstats.Name = "leaderstats"
+		leaderstats.Parent = player
+		print(("? Created %s's 'leaderstats' folder."):format(player.Name))
 	end
+
+	local leaderstat = Instance.new(class)
+	leaderstat.Name = name
+	leaderstat.Value = value
+	leaderstat.Parent = leaderstats
+
+	if debugmode then
+		print(("? Created new leaderstat for %s: %s"):format(player.Name, name))
+	end
+
+	return leaderstat
 end
 
-function module:Delete(p, n)
-	if p:FindFirstChild("leaderstats") then
-		if p.leaderstats:FindFirstChild(n) then
-			p.leaderstats[n]:Destroy()
-			print("? Deleted leaderstat '"..n.."' for "..p.Name)
+function LeaderstatService:EditValue(player, name, value)
+	local leaderstats = player:FindFirstChild("leaderstats")
+	if leaderstats then
+		local leaderstat = leaderstats:FindFirstChild(name)
+		if leaderstat then
+			leaderstat.Value = value
+			print(("? Edited leaderstat '%s' for %s"):format(name, player.Name))
 		else
-			warn("? Failed to delete leaderstat for "..p.Name..": User has no leaderstat called "..n)
+			warn(("? Failed to edit leaderstat for %s: User has no leaderstat called %s"):format(player.Name, name))
 		end
 	else
-		warn("? Failed to delete leaderstat for "..p.Name..": User has no 'leaderstats' folder.")
+		warn(("? Failed to edit leaderstat for %s: User has no 'leaderstats' folder."):format(player.Name))
 	end
 end
 
-return module
+function LeaderstatService:Delete(player, name)
+	local leaderstats = player:FindFirstChild("leaderstats")
+	if leaderstats then
+		local leaderstat = leaderstats:FindFirstChild(name)
+		if leaderstat then
+			leaderstat:Destroy()
+			print(("? Deleted leaderstat '%s' for %s"):format(name, player.Name))
+		else
+			warn(("? Failed to delete leaderstat for %s: User has no leaderstat called %s"):format(player.Name, name))
+		end
+	else
+		warn(("? Failed to delete leaderstat for %s: User has no 'leaderstats' folder."):format(player.Name))
+	end
+end
+
+return LeaderstatService
