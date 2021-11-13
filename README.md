@@ -1,8 +1,5 @@
 **LeaderstatService**
 ---
----
-
-[details="Tutorial"]
 Making leaderstats is pretty simple, but the code can also look pretty ugly.
 
 Well, today you can turn this:
@@ -38,8 +35,6 @@ Here's how that works:
 		"Cash" --// The name of the leaderstat.
 	)
 ```
-[/details]
-
 
 ---
 ## Extra Information
@@ -55,7 +50,7 @@ Error output logging cannot be disabled.
 ### Roblox
 Get the module [**here**](https://www.roblox.com/library/7984126459/LeaderstatService) and insert it into **ServerStorage**.
 ### File
-[LeaderstatService.lua|attachment](upload://mpHUZfVX0nfPL10Bg49Gar27gRy.lua) (1.3 KB)
+[LeaderstatService.lua](https://devforum.roblox.com/uploads/short-url/mpHUZfVX0nfPL10Bg49Gar27gRy.lua) (1.3 KB)
 
 ### GitHub
 You're here!
