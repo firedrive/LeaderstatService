@@ -15,6 +15,8 @@ function module:Create(p, n, t, v)
 		if debugmode then
 			print("? Created new leaderstat for "..p.Name..": "..inst.Name)
 		end
+		
+		return inst
 	else
 		-- doesn't exist
 		local lsfolder = Instance.new("Folder")
@@ -30,6 +32,8 @@ function module:Create(p, n, t, v)
 		if debugmode then
 			print("? Created new leaderstat for "..p.Name..": "..inst.Name)
 		end
+		
+		return inst
 	end
 end
 
